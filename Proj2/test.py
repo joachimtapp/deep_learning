@@ -7,6 +7,7 @@ def generate_disc_set(nb):
     target = input.sub(0.5).pow(2).sum(1).sub(1/ (2*math.pi)).sign().sub(1).div(-2).long()
     return input, target
 
+#generate train and test dataset and normalize them
 train_input,train_target=generate_disc_set(1000)
 test_input,test_target=generate_disc_set(1000)
 
@@ -14,10 +15,13 @@ mean, std = train_input.mean(), train_input.std()
 train_input.sub_(mean).div_(std)
 test_input.sub_(mean).div_(std)
 
+#choose the criterion (LossMSE or CrossEntroyLoss)
 loss_method=fw.LossMSE()
+#declare sequential network
 net=fw.Sequential(loss_method,fw.Linear(2,25),fw.Tanh(),fw.Linear(25,1),fw.Sigmoid())
 
 nb_epochs=100
+#choose the step of the gradient descent
 eta=1e-3
 for i in range(nb_epochs):
     acc_loss = 0

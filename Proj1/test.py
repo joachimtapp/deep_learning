@@ -3,23 +3,19 @@ from torch import nn
 from torch.autograd import Variable
 from torch.nn import functional as F
 import dlc_practical_prologue as prologue
+import random
 from torch import optim
-
 #Configure the GPU usage
 print("torch.cuda.is_available()   =", torch.cuda.is_available())
-print("torch.cuda.device_count()   =", torch.cuda.device_count())
-print("torch.cuda.device('cuda')   =", torch.cuda.device('cuda'))
-print("torch.cuda.current_device() =", torch.cuda.current_device())
-
 if torch.cuda.is_available():
     device = torch.device('cuda')
     torch.set_default_tensor_type('torch.cuda.FloatTensor')
 else:
     device = torch.device('cpu')
+    #avoid to have always the same results when using CPU
+    torch.manual_seed(random.randint(0,1000))
     
 #generate train and test data
-#target classes: a>b->0   a<=b->1
-
 [train_input,train_target,train_classes,
  test_input,test_target,test_classes]=prologue.generate_pair_sets(1000)
 
@@ -30,6 +26,7 @@ train_input, train_target,train_classes = train_input.to(device), train_target.t
 test_input, test_target,test_classes = test_input.to(device), test_target.to(device),test_classes.to(device)
 
 #Simple architecture
+#1 conv layer
 class ConvNet1(nn.Module):
     def __init__(self):
         super(ConvNet1, self).__init__()
@@ -41,13 +38,12 @@ class ConvNet1(nn.Module):
     def forward(self, x):
 
         x = F.max_pool2d(F.relu(self.conv1(x)), kernel_size=2)
-
         x=x.view(-1, 16*32)
 
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
         return x
-    
+#2 conv layers
 class ConvNet2(nn.Module):
     def __init__(self):
         super(ConvNet2, self).__init__()
@@ -58,17 +54,13 @@ class ConvNet2(nn.Module):
         self.fc2 = nn.Linear(nb_hidden, 2)
 
     def forward(self, x):
-
-        x = F.max_pool2d(F.relu(self.conv1(x)), kernel_size=1)
+        x = F.relu(self.conv1(x))
         x = F.max_pool2d(F.relu(self.conv2(x)), kernel_size=2)
-
         x=x.view(-1, 16*32)
-
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
-
         return x 
-    
+#3 conv layers
 class ConvNet3(nn.Module):
     def __init__(self):
         super(ConvNet3, self).__init__()
@@ -80,19 +72,16 @@ class ConvNet3(nn.Module):
         self.fc2 = nn.Linear(nb_hidden, 2)
 
     def forward(self, x):
-
-        x = F.max_pool2d(F.relu(self.conv1(x)), kernel_size=1)
+        x = F.relu(self.conv1(x))
         x = F.max_pool2d(F.relu(self.conv2(x)), kernel_size=2)
-        x = F.max_pool2d(F.relu(self.conv3(x)), kernel_size=1)
-
+        x = F.relu(self.conv3(x))
         x=x.view(-1, 4*32)
-
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
-
         return x   
     
 # With weight sharing
+#1 conv layer
 class ConvNet1_ws(nn.Module):
     def __init__(self):
         super(ConvNet1_ws, self).__init__()
@@ -105,6 +94,7 @@ class ConvNet1_ws(nn.Module):
         x1=torch.zeros(mini_batch_size,1,14,14)   
         x2=torch.zeros(mini_batch_size,1,14,14) 
         
+        #take the two numbers apart
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
         x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=2)
@@ -114,9 +104,8 @@ class ConvNet1_ws(nn.Module):
         x=torch.cat((x1,x2),1)
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
-
         return x
- #2 conv layer   
+#2 conv layers    
 class ConvNet2_ws(nn.Module):
     def __init__(self):
         super(ConvNet2_ws, self).__init__()
@@ -132,9 +121,8 @@ class ConvNet2_ws(nn.Module):
         
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
-        x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv1.weight)), kernel_size=1)
-        
+        x1 = F.relu(self.conv1(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv1.weight))
         x1 = F.max_pool2d(F.relu(self.conv2(x1)), kernel_size=2)
         x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv2.weight)), kernel_size=2)
         
@@ -144,9 +132,8 @@ class ConvNet2_ws(nn.Module):
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
         return x  
-    
 
- #3 conv layer   
+ #3 conv layers   
 class ConvNet3_ws(nn.Module):
     def __init__(self):
         super(ConvNet3_ws, self).__init__()
@@ -164,14 +151,14 @@ class ConvNet3_ws(nn.Module):
         
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
-        x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv1.weight)), kernel_size=1)
+        x1 = F.relu(self.conv1(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv1.weight))
         
         x1 = F.max_pool2d(F.relu(self.conv2(x1)), kernel_size=2)
         x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv2.weight)), kernel_size=2)
         
-        x1 = F.max_pool2d(F.relu(self.conv3(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv3.weight)), kernel_size=1)
+        x1 = F.relu(self.conv3(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv3.weight))
         x1=x1.view(-1, 4*32)
         x2=x2.view(-1, 4*32)
         x=torch.cat((x1,x2),1)
@@ -180,7 +167,7 @@ class ConvNet3_ws(nn.Module):
         return x    
     
 # with auxiliary losses
-
+#2 conv layers
 class ConvNet2_al(nn.Module):
     def __init__(self):
         super(ConvNet2_al, self).__init__()
@@ -200,8 +187,8 @@ class ConvNet2_al(nn.Module):
         
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
-        x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv1.weight)), kernel_size=1)
+        x1 = F.relu(self.conv1(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv1.weight))
         
         x1 = F.max_pool2d(F.relu(self.conv2(x1)), kernel_size=2)
         x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv2.weight)), kernel_size=2)
@@ -219,7 +206,7 @@ class ConvNet2_al(nn.Module):
         x = torch.sigmoid(self.fc1(x))
         x = self.fc2(x)
         return x,x1_aux,x2_aux
-
+#3 conv layers
 class ConvNet3_al(nn.Module):
     def __init__(self):
         super(ConvNet3_al, self).__init__()
@@ -240,14 +227,14 @@ class ConvNet3_al(nn.Module):
         
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
-        x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv1.weight)), kernel_size=1)
+        x1 = F.relu(self.conv1(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv1.weight))
         
-        x1 = F.max_pool2d(F.relu(self.conv2(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv2.weight)), kernel_size=1)
+        x1 = F.relu(self.conv2(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv2.weight))
         
-        x1 = F.max_pool2d(F.relu(self.conv3(x1)), kernel_size=1)
-        x2 = F.max_pool2d(F.relu(F.conv2d(x2,self.conv3.weight)), kernel_size=1)
+        x1 = F.relu(self.conv3(x1))
+        x2 = F.relu(F.conv2d(x2,self.conv3.weight))
         x1=x1.view(-1, 4*32)
         x2=x2.view(-1, 4*32)
         
@@ -289,7 +276,6 @@ def compute_nb_errors(model, input, target, mini_batch_size):
         for k in range(mini_batch_size):
             if target.data[b + k]!= predicted_classes[k]:
                 nb_errors = nb_errors + 1
-
     return nb_errors
 
 #For auxiliary losses architectures
@@ -304,10 +290,13 @@ def train_model_al(model, train_input, train_target, mini_batch_size,nb_epochs):
         sum_loss = 0
         for b in range(0, train_input.size(0), mini_batch_size):
             model.zero_grad()
-            output = model(train_input.narrow(0, b, mini_batch_size))  
+            output = model(train_input.narrow(0, b, mini_batch_size)) 
+            #loss on the final result
             loss = criterion(output[0], train_target.narrow(0, b, mini_batch_size))
+            #loss on the two digits
             loss1=criterion(output[1], train_classes[:,0].narrow(0, b, mini_batch_size))
             loss2=criterion(output[2], train_classes[:,1].narrow(0, b, mini_batch_size))
+            #we give more importance to the final result
             loss=4*loss+loss1+loss2
             loss.backward()
             optimizer.step()
