@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage[french]{babel}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+
+\graphicspath{{images/}}
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\small\bfseries}
+
+\title{\bfseries Lab 2 : Design of a Latch}
+\date{}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Lennard Ludwig}
+\lhead{Lab 2 : Design of a Latch/Flip Flop}
+\cfoot{\thepage}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\section{Design of a Latch}
+After building the circuit and launching the simulation tool we get the following graph :
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.7\textwidth]{latch}}
+\caption{Output graph of the latch}
+\end{figure}
+
+We can observe that in fact as expected the latch is transparent on the lower part of the clock and opaque on the high part of the clock. Thus on the first clock cycle the output stays at 0V. During the second clock cycle, the latch input goes high. During the first half of the clock the latch is still opaque and thus the output stays low and in the second part of the clock cycle, the latch becomes transparent and thus the output is pulled high. During the third clock cycle, the input goes low but as in the first half of the clock cycle the latch is opaque, the output remains high and then drops at during the second half period. After that, as the input doesn't change anymore, the output doesn't aswell.
+
+\section{Design of a Flip Flop}
+\subsection{Functioning of the Flip Flop}
+During the first half of the clock, the firstlatch of the flip flop is transparent as it can be seen it the following schematic.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=\textwidth]{flip_flop_1}}
+\caption{First half of the clock cycle}
+\end{figure}
+
+During this half of the clock, the second flip flop is in it's opaque phase and thus the input is not directly propagated to the output. During the second clock half, the first latch becomes opaque and thus no further input is taken into account but the previous input can be propagated to the second latch. Durind this half cycle the second latch is transparent and thus the output is set to the value that was before in the first latch. 
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=\textwidth]{flip_flop_2}}
+\caption{Second half of the clock period}
+\end{figure}
+
+\subsection{Simulation}
+
+After building the circuit on Cadence and simulating we get the following plot :
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.7\textwidth]{FlipFlop}}
+\caption{Output graph of the Flip Flop}
+\end{figure}
+During the first clock cycle, the inputs stays low and thus nothing happens at the output. During the second clock cycle, the output still doesn't change but on the second half of the second clock cycle, the first latch becomes transparent and thus it's output changes goes high. During this time, the second latch is opaque and thus the output stays low. During the first half of the third clock cycle, the first latch becomes opaque again and thus it's output stays at 1 and the second latch becomes transparent and thus the output finally goes high. During the second half of the third clock cycle, the first latch becomes transparent again and thus isn't output changes to 0 but the second latch is opaque, thus it's output stays high. Finally, during the fourth clock cycle, everything returns to zero as the previously stored 0 in the first latch is transmitted to the second latch.
+
+The main difference between the Flip Flop and the latch is that the output will only change on the rising edge of the clock and never during clock cycles as it could happen during the transparent phase of a latch. This "accurateness" is paid for by the fact that we have to wait a lock cycle before the input reaches the output.
+
+\end{document}
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
