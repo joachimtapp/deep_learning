@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+
+\graphicspath{{figures/}}
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\small\bfseries}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Joachim Tapparel and Lennard Ludwig}
+\lhead{Mini-project 2 : Framework}
+\cfoot{\thepage}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\section{Architecture}
+
+Each module implements the following functions : 
+
+\paragraph{forward(self, *input)}
+The function computes the output from the given input and the parameters of the module.
+    
+\paragraph{backward(self, *gradwrtoutput)}
+The function computes the derivative of the loss with respect to the input. In the case of a linear layer, in addition to the derivative, it accumulates the gradient of the loss with respect to its parameters. 
+    
+\paragraph{param(self)}
+Returns a tuple of tenors containing the parameters of the model and their corresponding derivatives. 
+    
+\paragraph{reset(self)}
+Resets the gradient accumulation of the linear layer to 0
+    
+\paragraph{update(self,eta)}
+Updates the parameters of the module according to the gradient. The size of the step is given by the parameter eta defined by the user. 
+
+
+
+
+
+
+\end{document}
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
