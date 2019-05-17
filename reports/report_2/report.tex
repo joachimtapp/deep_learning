@@ -49,7 +49,25 @@ Updates the parameters of the module according to the gradient. The size of the 
 
 
 In addition to the modules that define each layer, we added a module called \verb|Sequential| that contains all the modules of the network. It also has a function \verb|forward| and \verb|backward| that calls the forward/backward function for all its modules. This way when we want to use our framework we can simply add modules to our network and make steps ba simply calling \verb|forward| once. 
+\\
 
+The complete list of modules is the following:
+
+\begin{itemize}
+\item Activation layers:
+ \begin{itemize}
+	  \item ReLU
+	  \item Tanh
+	  \item Sigmoid
+	  \end{itemize}
+\item Linear Layer
+\item Criterion :
+ \begin{itemize}
+	  \item Mean Absolute Error
+	  \item Mean Square Error
+	  \item Cross Entropy Loss
+	  \end{itemize}
+\end{itemize}
 
 \subsection{Cross Entropy Loss}
 
