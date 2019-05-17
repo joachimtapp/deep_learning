@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  16 MAY 2019 18:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  17 MAY 2019 10:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -356,12 +356,12 @@ Package pdftex.def Info: figures/mse_plot.png  used on input line 115.
 <figures/err_mae.png, id=30, 502.87875pt x 484.81125pt>
 File: figures/err_mae.png Graphic file (type png)
 <use figures/err_mae.png>
-Package pdftex.def Info: figures/err_mae.png  used on input line 124.
+Package pdftex.def Info: figures/err_mae.png  used on input line 125.
 (pdftex.def)             Requested size: 229.87903pt x 221.61772pt.
 <figures/cel_err.png, id=31, 502.87875pt x 484.81125pt>
 File: figures/cel_err.png Graphic file (type png)
 <use figures/cel_err.png>
-Package pdftex.def Info: figures/cel_err.png  used on input line 125.
+Package pdftex.def Info: figures/cel_err.png  used on input line 126.
 (pdftex.def)             Requested size: 229.87903pt x 221.61772pt.
  [3 <./figures/mse_plot.PNG> <./figures/err_mae.png> <./figures/cel_err.png>] (
 ./report.aux) ) 
@@ -388,7 +388,7 @@ st/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2019/texmf-dist/fonts/t
 ype1/public/cm-super/sfbx1728.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publi
 c/cm-super/sfrm1000.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/cm-super
 /sftt1000.pfb>
-Output written on report.pdf (3 pages, 1075703 bytes).
+Output written on report.pdf (3 pages, 1075727 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  55 compressed objects within 1 object stream

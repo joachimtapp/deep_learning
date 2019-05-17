@@ -94,11 +94,11 @@ We thus end up with an output that consists of the tensor :
 								  \end{pmatrix} \]
 								  
 
-\section{Test of Framework}
+\section{Test of the framework}
 
 After building the requested network, we trained it on the random dataset. After several tests we got a test error of 7.71\% with a standard deviation of 0.0513
 
-If we have a look at the graph of the test error versus the number of epochs we can observe that depending on the start weights, the error converges after around 40 epochs or can stay stuck in a local minima for some time and then drop.  
+If we have a look at the graph of the test error versus the number of epochs we can observe that depending on the start weights, the error drops only after 50 epochs or later or even sometimes it gets stuck in a local minima.   
 
 \begin{figure}[H]
 \begin{center}
@@ -118,7 +118,8 @@ If we have a look at the classification of the output we get can see that the cl
 \end{figure}
 
 
-We also tried with the Mean Absolute Error and the Cross Entropy Loss. We observed that MAE didn't work as well because it got stuck in local minima more often. With CEL we also achieved the best results.  
+We also tried with the Mean Absolute Error and the Cross Entropy Loss. We observed that MAE didn't work as well because it got stuck in local minima more often. With CEL we also achieved the best and most consistent results (minimal standard deviation of the error).
+  
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.47\textwidth]{err_mae}

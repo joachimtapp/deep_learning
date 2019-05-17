@@ -40,7 +40,7 @@ In the beforehand scenario, the network doesn't take into account any informatio
 
 \subsection{Weight Sharing}
 
-By using the structure of the input data, we can create two parallel paths to process each image separately and compare them afterwards. Using the fact that the two images carry the same information, i.e. picture of handwritten digits, both paths should be trained together which is implemented using the same weights. %% A reformuler enventuellement 
+By using the structure of the input data, we can create two parallel paths to process each image separately and compare them afterwards. As both paths should train to recognize handwritten digits, it makes sense to share the weights between the two convolutional parts to achieve better performance. 
 
 \begin{figure}[H]
 \centering{\includegraphics[width=0.6\textwidth]{arch_ws}}
@@ -51,25 +51,23 @@ After the convolutional part, we merge the two outputs together and make a decis
 
 \subsection{Auxiliary losses}
 
-The goal of auxiliary losses is to optimise some parts of the network to a specific task, in this case we can train the network to recognise numbers after the convolutional layers. 
+The goal of auxiliary losses is to optimise some parts of the network to a specific task, in this case we can train the network to recognise numbers after the convolutional layers. Again we use weight sharing in those parts as they do the same job of recognising digits.
 
 \begin{figure}[H]
 \centering{\includegraphics[width=0.6\textwidth]{arch_al}}
 \caption{Addition of auxiliary losses}
 \end{figure}
 
-We expect this architecture to work better than the two previous ones as the network is using all the extra information from the input data. 
-
+We expect this architecture to work better than the two previous ones as we use the information regarding the structure of the input data. 
 
 \section{Results}
 
 \subsection{Simple Architecture}
-We tried different networks with one, two and three convolutional layers and keeping the number of parameters constant and there is no change in performance. By using the parameters and architecture in the code, with 25 epochs, a minibatch size of 50 and 1000 train samples, we get an error rate of 20.95\% with a standard deviation of 0.6241
+We tried different networks with one, two and three convolutional layers and keeping the number of parameters constant and there is no change in performance. By using the parameters and architecture in our code, with 25 epochs, a minibatch size of 50 and 1000 train samples, we get an error rate of 20.95\% with a standard deviation of 0.6241.
 
 \subsection{Weight Sharing}
 
-Again, the same way as before we tried different depths of convolutional layers, but this time we got better results by using three layers instead of one. 
-
+Again, the same way as before we tried different depths of convolutional layers, but this time we got better results by using three layers instead of one. Again, we kept the number of parameters constant.
 
 \begin{center}
 \begin{tabular}{|c|c|c|}
@@ -96,7 +94,7 @@ If we plot the output of the network in a plane (one hot output), we get the fol
 \end{center}
 \end{figure}
 
-In these graphs, the color of each point corresponds to the correct label and the red line is the decision boundary. We can observe that with more layers, the output is spread further apart and thus it is easier to make the correct classification.
+In these graphs, the color of each point corresponds to the correct label and the red line is the decision boundary. In the ideal case fo a 100\% success rate we would have a yellow cluster on top and a purple cluster on the bottom. We can observe that with more layers, the output is spread further apart and thus tends to separate the clusters better.
 
 \subsection{Auxiliary Losses}
 
@@ -116,7 +114,7 @@ As said before, with the auxiliary losses we expect the best results.
 \end{tabular}
 \end{center}
 
-And indeed we get the best results by using three convolutional layers, weight sharing and auxiliary losses with only 12.4\% of error. We can also notice that with only one layer the network isn't able at all to recognize the numbers. 
+And indeed we get the best results by using three convolutional layers, weight sharing and auxiliary losses with only 12.4\% of error. We can also notice that with only one layer, the result is worse than all of the tests above. This is due to the fact that the network isn't able to recognize the digits properly and thus influences the loss incorrectly.
 
 \subsection{Comparison}
 
