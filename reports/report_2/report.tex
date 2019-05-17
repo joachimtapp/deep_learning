@@ -33,7 +33,7 @@ Each module implements the following functions :
 The function computes the output from the given input and the parameters of the module.
     
 \paragraph{backward(self, *gradwrtoutput)}
-The function computes the derivative of the loss with respect to the input. In the case of a linear layer, in addition to the derivative, it accumulates the gradient of the loss with respect to its parameters. To compute it we can use the fact that trhe function takes as parameter the gradient of the loss with respect to the output and thus we have : 
+The function computes the derivative of the loss with respect to the input. In the case of a linear layer, in addition to the derivative, it accumulates the gradient of the loss with respect to its parameters. To compute it we can use the fact that the function takes as parameter the gradient of the loss with respect to the output and thus we have : 
 \[\frac{\partial l}{\partial s} = \frac{\partial x}{\partial s} \frac{\partial l}{\partial x}\] 
 
 where $\frac{\partial x}{\partial s}$ is the derivative of the forward function and $\frac{\partial l}{\partial x}$ is the derivative of the loss with respect to the output.
@@ -42,13 +42,12 @@ where $\frac{\partial x}{\partial s}$ is the derivative of the forward function 
 Returns a tuple of tenors containing the parameters of the model and their corresponding derivatives. 
     
 \paragraph{reset(self)}
-Resets the gradient accumulation of the linear layer to 0
+Resets the gradient accumulation of the linear layer to 0.
     
 \paragraph{update(self,eta)}
 Updates the parameters of the module according to the gradient. The size of the step is given by the parameter eta defined by the user. 
-
-
-In addition to the modules that define each layer, we added a module called \verb|Sequential| that contains all the modules of the network. It also has a function \verb|forward| and \verb|backward| that calls the forward/backward function for all its modules. This way when we want to use our framework we can simply add modules to our network and make steps ba simply calling \verb|forward| once. 
+\\
+In addition to the modules that define each layer, we added a module called \verb|Sequential| that contains all the modules of the network. It also has a function \verb|forward| and \verb|backward| that calls the forward/backward function for all its modules. This way when we want to use our framework we can simply add modules to our network and make steps by simply calling \verb|forward| once. 
 \\
 
 The complete list of modules is the following:
@@ -114,9 +113,9 @@ We thus end up with an output that consists of the tensor :
 
 \section{Test of the framework}
 
-After building the requested network, we trained it on the random dataset. After several tests we got a test error of 7.71\% with a standard deviation of 0.0513
+After building the requested network, we trained it on the random dataset. After several tests we got a test error of 7.71\% with a standard deviation of 0.0513.
 
-If we have a look at the graph of the test error versus the number of epochs we can observe that depending on the start weights, the error drops only after 50 epochs or later or even sometimes it gets stuck in a local minima.   
+If we have a look at the graph of the test error versus the number of epochs we can observe that depending on the starting weights, the error drops only after 50 epochs or later or even sometimes it gets slowed down on a local flat spot.   
 
 \begin{figure}[H]
 \begin{center}
@@ -126,7 +125,7 @@ If we have a look at the graph of the test error versus the number of epochs we 
 \end{center}
 \end{figure}
 
-If we have a look at the classification of the output we get can see that the classified circle isn't exactly round but it works pretty good. 
+If we have a look at the classification of the output we get can see that the classified circle isn't exactly round but it works pretty well. 
 
 \begin{figure}[H]
 \begin{center}
@@ -136,7 +135,7 @@ If we have a look at the classification of the output we get can see that the cl
 \end{figure}
 
 
-We also tried with the Mean Absolute Error and the Cross Entropy Loss. We observed that MAE didn't work as well because it got stuck in local minima more often. With CEL we also achieved the best and most consistent results (minimal standard deviation of the error).
+We also tried with the Mean Absolute Error and the Cross Entropy Loss. We observed that MAE didn't work as well because the gradient descent got often stuck on a flat spot. With CEL (Cross Entropy Loss) we also achieved the best and most consistent results (minimal standard deviation of the error).
   
 \begin{figure}[H]
 \begin{center}

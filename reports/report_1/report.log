@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  17 MAY 2019 10:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  17 MAY 2019 13:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -310,11 +310,11 @@ File: figures/ws_conv3.png Graphic file (type png)
 <use figures/ws_conv3.png>
 Package pdftex.def Info: figures/ws_conv3.png  used on input line 92.
 (pdftex.def)             Requested size: 122.27576pt x 117.99828pt.
-<figures/simple_conv3.png, id=19, 487.8225pt x 471.7625pt>
+<figures/simple_conv3.png, id=19, 369.63094pt x 353.44547pt>
 File: figures/simple_conv3.png Graphic file (type png)
 <use figures/simple_conv3.png>
 Package pdftex.def Info: figures/simple_conv3.png  used on input line 125.
-(pdftex.def)             Requested size: 122.27576pt x 118.24986pt.
+(pdftex.def)             Requested size: 122.27576pt x 116.9178pt.
 File: figures/ws_conv3.png Graphic file (type png)
 <use figures/ws_conv3.png>
 Package pdftex.def Info: figures/ws_conv3.png  used on input line 126.
@@ -324,25 +324,41 @@ File: figures/al_conv3.png Graphic file (type png)
 <use figures/al_conv3.png>
 Package pdftex.def Info: figures/al_conv3.png  used on input line 127.
 (pdftex.def)             Requested size: 122.27576pt x 117.99828pt.
+<figures/pdf_simple.png, id=21, 339.89484pt x 322.58015pt>
+File: figures/pdf_simple.png Graphic file (type png)
+<use figures/pdf_simple.png>
+Package pdftex.def Info: figures/pdf_simple.png  used on input line 128.
+(pdftex.def)             Requested size: 122.27576pt x 116.04507pt.
+<figures/pdf_ws.png, id=22, 352.31625pt x 330.48468pt>
+File: figures/pdf_ws.png Graphic file (type png)
+<use figures/pdf_ws.png>
+Package pdftex.def Info: figures/pdf_ws.png  used on input line 129.
+(pdftex.def)             Requested size: 122.27576pt x 114.6981pt.
+<figures/pdf_al.png, id=23, 357.20953pt x 324.8386pt>
+File: figures/pdf_al.png Graphic file (type png)
+<use figures/pdf_al.png>
+Package pdftex.def Info: figures/pdf_al.png  used on input line 130.
+(pdftex.def)             Requested size: 122.27576pt x 111.19211pt.
  [2 <./figures/ws_conv1.png> <./figures/ws_conv2.png> <./figures/ws_conv3.png>]
- [3 <./figures/simple_conv3.png> <./figures/al_conv3.png>] (./report.aux) ) 
+ [3 <./figures/simple_conv3.png> <./figures/al_conv3.png> <./figures/pdf_simple
+.PNG> <./figures/pdf_ws.PNG> <./figures/pdf_al.PNG>] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 4313 strings out of 492616
- 63594 string characters out of 6133219
+ 4328 strings out of 492616
+ 63917 string characters out of 6133219
  151988 words of memory out of 5000000
- 8183 multiletter control sequences out of 15000+600000
+ 8195 multiletter control sequences out of 15000+600000
  7488 words of font info for 19 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,10n,43p,443b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/
-texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texlive/20
-19/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2019/texmf-d
-ist/fonts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2019/texmf-dist/fonts/
-type1/public/cm-super/sfrm1000.pfb>
-Output written on report.pdf (3 pages, 294446 bytes).
+{c:/texliv
+e/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texlive/2019/tex
+mf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2019/texmf-dist/fo
+nts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2019/texmf-dist/fonts/type1/
+public/cm-super/sfrm1000.pfb>
+Output written on report.pdf (3 pages, 548868 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 50 PDF objects out of 1000 (max. 8388607)
  19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

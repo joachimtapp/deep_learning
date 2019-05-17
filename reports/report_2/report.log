@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  17 MAY 2019 10:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.5.15)  17 MAY 2019 13:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -331,48 +331,48 @@ e
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 51.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 50.
 (c:/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 51--53
+Underfull \hbox (badness 10000) in paragraph at lines 48--52
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 57.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 56.
 (c:/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 57.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
  [1{c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 <figures/err_mse_sep.png, id=19, 502.87875pt x 485.815pt>
 File: figures/err_mse_sep.png Graphic file (type png)
 <use figures/err_mse_sep.png>
-Package pdftex.def Info: figures/err_mse_sep.png  used on input line 126.
+Package pdftex.def Info: figures/err_mse_sep.png  used on input line 122.
 (pdftex.def)             Requested size: 229.87903pt x 222.07657pt.
 <figures/err_mse.png, id=21, 502.87875pt x 484.81125pt>
 File: figures/err_mse.png Graphic file (type png)
 <use figures/err_mse.png>
-Package pdftex.def Info: figures/err_mse.png  used on input line 127.
+Package pdftex.def Info: figures/err_mse.png  used on input line 123.
 (pdftex.def)             Requested size: 229.87903pt x 221.61772pt.
 <figures/mse_plot.png, id=22, 373.0186pt x 358.71515pt>
 File: figures/mse_plot.png Graphic file (type png)
 <use figures/mse_plot.png>
-Package pdftex.def Info: figures/mse_plot.png  used on input line 136.
+Package pdftex.def Info: figures/mse_plot.png  used on input line 132.
 (pdftex.def)             Requested size: 244.55153pt x 235.17087pt.
  [2 <./figures/err_mse_sep.png> <./figures/err_mse.png>]
 <figures/err_mae.png, id=30, 502.87875pt x 484.81125pt>
 File: figures/err_mae.png Graphic file (type png)
 <use figures/err_mae.png>
-Package pdftex.def Info: figures/err_mae.png  used on input line 146.
+Package pdftex.def Info: figures/err_mae.png  used on input line 142.
 (pdftex.def)             Requested size: 229.87903pt x 221.61772pt.
 <figures/cel_err.png, id=31, 502.87875pt x 484.81125pt>
 File: figures/cel_err.png Graphic file (type png)
 <use figures/cel_err.png>
-Package pdftex.def Info: figures/cel_err.png  used on input line 147.
+Package pdftex.def Info: figures/cel_err.png  used on input line 143.
 (pdftex.def)             Requested size: 229.87903pt x 221.61772pt.
  [3 <./figures/mse_plot.PNG> <./figures/err_mae.png> <./figures/cel_err.png>] (
 ./report.aux) ) 
@@ -399,7 +399,7 @@ st/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2019/texmf-dist/fonts/t
 ype1/public/cm-super/sfbx1728.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publi
 c/cm-super/sfrm1000.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/cm-super
 /sftt1000.pfb>
-Output written on report.pdf (3 pages, 1076318 bytes).
+Output written on report.pdf (3 pages, 1076571 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  55 compressed objects within 1 object stream
