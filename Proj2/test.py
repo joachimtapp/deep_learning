@@ -1,10 +1,10 @@
 import proj2_framework as fw
 import torch
-import math
+from math import pi
 
 def generate_disc_set(nb):
     input = torch.Tensor(nb, 2).uniform_(0, 1)
-    target = input.sub(0.5).pow(2).sum(1).sub(1/ (2*math.pi)).sign().sub(1).div(-2).long()
+    target = input.sub(0.5).pow(2).sum(1).sub(1/ (2*pi)).sign().sub(1).div(-2).long()
     return input, target
 
 #generate train and test dataset and normalize them
@@ -19,7 +19,7 @@ test_input.sub_(mean).div_(std)
 loss_method=fw.LossMSE()
 #declare sequential network
 net=fw.Sequential(loss_method,fw.Linear(2,25),fw.Tanh(),fw.Linear(25,1),fw.Sigmoid())
-
+print('Training of the network (Lin-->Tanh-->Lin-->Sigmoid) using MSE loss during 100 epochs')
 nb_epochs=100
 #choose the step of the gradient descent
 eta=1e-3

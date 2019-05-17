@@ -1,5 +1,4 @@
 import torch
-import math
 torch.set_grad_enabled (False);
 
 class Tanh():  

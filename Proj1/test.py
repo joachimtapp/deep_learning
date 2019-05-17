@@ -5,15 +5,18 @@ from torch.nn import functional as F
 import dlc_practical_prologue as prologue
 import random
 from torch import optim
+
 #Configure the GPU usage
-print("torch.cuda.is_available()   =", torch.cuda.is_available())
 if torch.cuda.is_available():
     device = torch.device('cuda')
     torch.set_default_tensor_type('torch.cuda.FloatTensor')
+    print('A GPU is available and will be used')
+    
 else:
     device = torch.device('cpu')
-    #avoid to have always the same results when using CPU
+    #avoid to always have the same results when using CPU
     torch.manual_seed(random.randint(0,1000))
+    print('No GPU available, CPU will be used')
     
 #generate train and test data
 [train_input,train_target,train_classes,
@@ -94,7 +97,7 @@ class ConvNet1_ws(nn.Module):
         x1=torch.zeros(mini_batch_size,1,14,14)   
         x2=torch.zeros(mini_batch_size,1,14,14) 
         
-        #take the two numbers apart
+        #take the two digits apart
         x1[:,0,:,:]=x[:,0,:,:]
         x2[:,0,:,:]=x[:,1,:,:]
         x1 = F.max_pool2d(F.relu(self.conv1(x1)), kernel_size=2)
@@ -257,15 +260,12 @@ def train_model(model, train_input, train_target, mini_batch_size,nb_epochs):
 
     optimizer = optim.SGD(model.parameters(),lr=1e-2)
     for e in range(nb_epochs):
-        sum_loss = 0
         for b in range(0, train_input.size(0), mini_batch_size):
             model.zero_grad()
             output = model(train_input.narrow(0, b, mini_batch_size))   
-            loss = criterion(output, train_target.narrow(0, b, mini_batch_size))
-            
+            loss = criterion(output, train_target.narrow(0, b, mini_batch_size))           
             loss.backward()
             optimizer.step()
-            sum_loss += loss.data
 
 def compute_nb_errors(model, input, target, mini_batch_size):
     nb_errors = 0
@@ -287,7 +287,6 @@ def train_model_al(model, train_input, train_target, mini_batch_size,nb_epochs):
     optimizer = optim.SGD(model.parameters(),lr=1e-2)
     
     for e in range(nb_epochs):
-        sum_loss = 0
         for b in range(0, train_input.size(0), mini_batch_size):
             model.zero_grad()
             output = model(train_input.narrow(0, b, mini_batch_size)) 
@@ -297,11 +296,9 @@ def train_model_al(model, train_input, train_target, mini_batch_size,nb_epochs):
             loss1=criterion(output[1], train_classes[:,0].narrow(0, b, mini_batch_size))
             loss2=criterion(output[2], train_classes[:,1].narrow(0, b, mini_batch_size))
             #we give more importance to the final result
-            loss=4*loss+loss1+loss2
-            loss.backward()
-            optimizer.step()
-            sum_loss += loss.data
-            del loss,loss1,loss2
+            loss_tot=4*loss+loss1+loss2
+            loss_tot.backward()
+            optimizer.step()            
         
 def compute_nb_errors_al(model, input, target, mini_batch_size):
     nb_errors = 0
@@ -316,32 +313,30 @@ def compute_nb_errors_al(model, input, target, mini_batch_size):
     return nb_errors
 
 ##Training and testing
-
-mini_batch_size=100
+mini_batch_size=50
 nb_epoch=25
+nb_tests=1
 
 print("Training on 1000 samples, during {:d} epochs using 3 convolutional layers with ~70'000 parameters:".format(nb_epoch) )
-for i in range(1):
+#test simple
+for i in range(nb_tests):
     model=ConvNet3()
     model.to(device)
     train_model(model, train_input, train_target.to(device),mini_batch_size,nb_epoch)
     nb_test_errors=compute_nb_errors(model, test_input, test_target,mini_batch_size)
     print('Simple architecture: {:0.2f}% of errors '.format((100 * nb_test_errors) / test_input.size(0)))
-
-for i in range(1):
+#test weight sharing
+for i in range(nb_tests):
     model=ConvNet3_ws()
     model.to(device)
     train_model(model, train_input, train_target.to(device),mini_batch_size,nb_epoch)
     nb_test_errors=compute_nb_errors(model, test_input, test_target,mini_batch_size)
     print('With weight sharing: {:0.2f}% of errors '.format((100 * nb_test_errors) / test_input.size(0)))
-
-for i in range(1):
+#test auxiliary losses
+for i in range(nb_tests):
     model=ConvNet3_al()
     model.to(device)
     train_model_al(model, train_input, train_target.to(device),mini_batch_size,nb_epoch)
     nb_test_errors=compute_nb_errors_al(model, test_input, test_target,mini_batch_size)
     print('With Weight sharing and auxiliary losses: {:0.2f}% of errors '.format((100 * nb_test_errors) / test_input.size(0)))
        
-
-
-
