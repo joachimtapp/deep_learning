@@ -94,7 +94,7 @@ If we plot the output of the network in a plane (one hot output), we get the fol
 \end{center}
 \end{figure}
 
-In these graphs, the color of each point corresponds to the correct label and the red line is the decision boundary. In the ideal case fo a 100\% success rate we would have a yellow cluster on top and a purple cluster on the bottom. We can observe that with more layers, the output is spread further apart and thus tends to separate the clusters better.
+In these graphs, the color of each point corresponds to the correct label and the red line is the decision boundary. In the ideal case for a 100\% success rate we would have a yellow cluster on top and a purple cluster on the bottom. We can observe that with more layers, the output is spread further apart and thus tends to separate the clusters better.
 
 \subsection{Auxiliary Losses}
 
@@ -125,37 +125,14 @@ If we have a look at the plots of the outputs, we can observe that the further t
 \includegraphics[width=0.25\textwidth]{simple_conv3}
 \includegraphics[width=0.25\textwidth]{ws_conv3}
 \includegraphics[width=0.25\textwidth]{al_conv3}
-\caption{Network output with simple, weight sharing and auxiliary loss architecture with three convolutional layers each}
+\includegraphics[width=0.25\textwidth]{pdf_simple}
+\includegraphics[width=0.25\textwidth]{pdf_ws}
+\includegraphics[width=0.25\textwidth]{pdf_al}
+\caption{Network output and point distribution with simple, weight sharing and auxiliary loss architecture with three convolutional layers each}
 \end{center}
 \end{figure}
 
+Indeed the misclassified points get fewer and get closer to the decision boundary. This information can be used to acquire a level of certainty on the classification, as the further the point is from the boundary, the more certain we are that this point is correctly classified. This works better by using the auxiliary losses than the simple architecture. 
+
 
 \end{document}
-
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
-%
